@@ -1,3 +1,6 @@
+# based on
+# https://tproger.ru/translations/asynchronous-programming-in-python/
+
 import asyncio
 from urllib.error import URLError
 from urllib.request import urlopen
@@ -24,11 +27,17 @@ def aurlopen(url):
         return 'URL_ERROR'
     except ConnectionResetError:
         return 'CONNECTION_ERROR'
-
+      
 # get url data
 async def print_head(url):
     print('Starting {} [{}]'.format(url, dt.now().strftime('%H:%M:%S')))
     data = await aurlopen(url)
+    # or
+    # import aiohttp
+    # async with aiohttp.ClientSession() as session:
+    #     async with session.get(url) as resp:
+    #        data await resp.text()
+    data = await response.text()
     print('{}: {} bytes: {} [{}]'.format(url, len(data), data[0:50], dt.now().strftime('%H:%M:%S')))
     return '{}: {} bytes: {}'.format(url, len(data), data[0:50])
 
