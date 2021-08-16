@@ -1,0 +1,35 @@
+# add me by adding into ~/.bashrc ot ~/.bash_profile lines below
+# if [ -f ~/.bash_helpers ]; then
+#   . ~/.bash_helpers
+# fi
+
+# to disable homebrew update anytime when installing some package
+export HOMEBREW_NO_AUTO_UPDATE=1
+# custom prompt line color
+export PS1="\[\033[01;43m\]\w\[\033[00m\] \$ "
+
+# convert timestamp to human-readable date
+function ts2date() {
+  python -c "from datetime import datetime; print(datetime.fromtimestamp(${1}))"
+}
+
+# get timestamp and date after N-time
+# 1S - 1 second
+# 1M - 1 minute
+# 1d - 1 day
+# etc
+function dateafter() {
+  echo $(date -v+${1} +"%s")" "is" "$(date -v+${1} +"%Y-%m-%d %H:%M:%S")
+}
+
+# to access hosts file faster
+alias hosts='sudo nano /etc/hosts'
+
+# run python local webserver
+alias web='python3 -m http.server --cgi 8888'
+
+# get global IP
+alias gip='curl checkip.amazonaws.com'
+
+# get docker networks
+alias d_net='for d in $(docker network ls -f driver=bridge -q); do docker network inspect ${d} --format "{{.Name}}: {{(index .IPAM.Config 0).Gateway}} / {{(index .IPAM.Config 0).Subnet}}"; done'
