@@ -22,6 +22,15 @@ function dateafter() {
   echo $(date -v+${1} +"%s")" "is" "$(date -v+${1} +"%Y-%m-%d %H:%M:%S")
 }
 
+# beautify SQL query with python (run pip install sqlparse first)
+function beautifysql() {
+  if [ -z "$1" ]; then
+    echo "Usage: beautifysql [sql_command or sql_file_path.sql]";
+  else
+    echo -e "import sqlparse\nm = None\nif \"${1}\".lower().endswith('.sql'):\n  m = open(\"${1}\",'r').read()\nif m is None:\n  m = \"${1}\"\nprint(sqlparse.format(m, reindent=True, keyword_case='upper'))" | python
+  fi
+}
+
 # to access hosts file faster
 alias hosts='sudo nano /etc/hosts'
 
