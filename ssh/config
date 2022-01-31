@@ -1,0 +1,22 @@
+Host tunnel
+  HostName 8.8.8.8 (global IP or hostname)
+  ForwardX11 yes
+  IdentityFile ~/.ssh/path_to_key
+  User user
+  Port 22
+  LogLevel ERROR
+
+# 192.168.1.0/24 internal subnet
+# jump via tunnel host
+Host 192.168.1.*
+  StrictHostKeyChecking no
+  UserKnownHostsFile /dev/null
+  IdentityFile ~/.ssh/path_to_key
+  User user
+  ForwardX11 yes
+  ProxyJump tunnel
+  Port 22
+  LogLevel ERROR
+  AddressFamily inet
+  Compression yes
+  Protocol 1
