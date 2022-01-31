@@ -7,6 +7,8 @@
 export HOMEBREW_NO_AUTO_UPDATE=1
 # custom prompt line color
 export PS1="\[\033[01;43m\]\w\[\033[00m\] \$ "
+# don't print deprecation warnings on new MacOS
+export BASH_SILENCE_DEPRECATION_WARNING=1
 
 # convert timestamp to human-readable date
 function ts2date() {
@@ -29,6 +31,26 @@ function beautifysql() {
   else
     echo -e "import sqlparse\nm = None\nif \"${1}\".lower().endswith('.sql'):\n  m = open(\"${1}\",'r').read()\nif m is None:\n  m = \"${1}\"\nprint(sqlparse.format(m, reindent=True, keyword_case='upper'))" | python
   fi
+}
+
+# port forwarding to localhost (using SSH tunnel)
+function pfwd() {
+  if [ -z "${1}" -o -z "${2}" -o -z "${3}" ]
+  then
+    echo 'Usage pfwd from_ip from_port to_port'
+  else
+    ssh -N -L localhost:${3}:${1}:${2} idcf
+  fi
+}
+
+# weather forecast
+function tenki() {
+  if [ -z "$1" ]; then
+    place=tokyo
+  else
+    place=${1}
+  fi
+  curl "wttr.in/${place}"
 }
 
 # to access hosts file faster
