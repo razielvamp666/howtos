@@ -1,0 +1,21 @@
+# add this file into home directory
+# set [export PYTHONSTARTUP="$HOME/.python_profile"] into .bash_profile
+# run myhistory() in python shell to be able see history of inserted commands
+
+def myhistory(condition=None):
+  import readline as r
+  if type(condition) == int:
+    max_length = r.get_current_history_length()
+    if max_length <= condition:
+      length = [max_length]
+    else:
+      length = [(max_length-condition), max_length]
+    for cmd in [str(r.get_history_item(i+1)) for i in range(*length)]:
+      print(cmd)
+  else:
+    for cmd in [str(r.get_history_item(i+1)) for i in range(r.get_current_history_length())]:
+      if condition is None:
+        print(cmd)
+      else:
+        if condition in cmd:
+          print(cmd)
