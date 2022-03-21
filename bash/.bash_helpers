@@ -35,11 +35,11 @@ function beautifysql() {
 
 # port forwarding to localhost (using SSH tunnel)
 function pfwd() {
-  if [ -z "${1}" -o -z "${2}" -o -z "${3}" ]
+  if [ -z "${1}" -o -z "${2}" -o -z "${3}" -o -z "${4}" ]
   then
-    echo 'Usage pfwd from_ip from_port to_port'
+    echo 'Usage pfwd from_ip from_port to_port bridge_ip'
   else
-    ssh -N -L localhost:${3}:${1}:${2} idcf
+    ssh -N -L localhost:${3}:${1}:${2} ${4}
   fi
 }
 
